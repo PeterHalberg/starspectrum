@@ -1,0 +1,54 @@
+body{
+  padding: 20px;
+}
+
+.container {
+  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+.item {
+  border-radius: 10px;
+  background: navy;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  grid-column: span 2;
+}
+
+.full {
+  border-radius: 10px;
+  background: tan;
+  grid-column: span 6;
+}
+
+.half {
+  border-radius: 10px;
+  color: white;
+  padding: 20 px;
+  grid-column: span 3;
+  background: navy;
+}
+
+.place{
+  padding: 20px;
+  background: black;
+  border-radius: 50px;
+}
+
+.place:hover{
+  background: gray;
+}
+
+@media (max-wigth: 600px) {
+  .container{
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  .item, .full, .half{
+    grid-column: span 1;
+  }
+}
