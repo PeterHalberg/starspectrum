@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdn.plot.ly/plotly-3.4.0.min.js'></script>
+  <script src = 'main.js'></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class = "container">
+    <div class = "item"> 
+      <div class="controls">
+    <div>
+        <label>Температура (K): </label>
+        <input type="range" id="tempSlider" min="200" max="40000" value="5867" step="100">
+        <span id="tempVal">5867</span>
+    </div>
+    <br>
+    <div>
+        <label>Дистанция (Mpc): </label>
+        <input type="range" id="distSlider" min="0" max="10000" value="1" step="10">
+        <span id="distVal">1</span>
+    </div>
+    </div>
+    </div>
+    <div class = "item">
+      <div class = "place">
+        <span id = "shownear">Sun</span>
+      </div>
+    </div>
+    <div class = "item" id = "bulb"></div>
+	  <div class = "full" id='myDiv'></div>
+    <div class = "half"><span>Created by Vladimir Jirinovsky design bereau, distributed under MIT License.</span></div>
+    <div class = "half"><span>Feel free to copy, sell, exploit, modify or reverse-engineer this piece of software if necessary.</span></div>
+  </div>
+</body>
