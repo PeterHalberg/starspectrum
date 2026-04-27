@@ -43,7 +43,7 @@ body{
   background: gray;
 }
 
-@media (max-wigth: 600px) {
+@media (max-wigth: 400px) {
   .container{
     grid-template-columns: 1fr;
     width: 100%;
