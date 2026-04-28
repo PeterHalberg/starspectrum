@@ -39,6 +39,10 @@ body{
   border-radius: 50px;
 }
 
+.place span {
+  display: inline-block;
+}
+
 .place:hover{
   background: gray;
 }
