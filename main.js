@@ -8,8 +8,8 @@ var freq = 0;
 var currentcsv = [];
 function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
-    
-    let nu_obs = nu_peak*(1 / (1 - (-1*v / c)));
+    let z = 1+(65*d)/c;
+    let nu_obs = nu_peak * (1 / (1 - (-1*v / c))) * z;
     
     let x_vals = [];
     let y_vals = [];
