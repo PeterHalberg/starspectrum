@@ -9,7 +9,7 @@ var currentcsv = [];
 function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
     
-    let nu_obs = nu_peak*(1 / (1 - (-1*v / c)))*((65*d)/c);
+    let nu_obs = nu_peak*(1 / (1 - (-1*v / c)));
     
     let x_vals = [];
     let y_vals = [];
