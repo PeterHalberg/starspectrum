@@ -169,7 +169,7 @@ function updateAll() {
 
 const lumoshow = document.getElementById('Lumo');
 function updateLuminosity(t,r){
-    lumoshow.innerHTML = `Luminosity (W): ${(sigma*(t**4)*4*pi**2*r*1e9).toExponential(3)}`;
+    lumoshow.innerHTML = `Luminosity (W): ${(sigma*(t**4)*4*pi*r**2*1e18).toExponential(3)}`;
 }
 
 
