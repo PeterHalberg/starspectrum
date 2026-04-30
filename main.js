@@ -1,13 +1,15 @@
 const k = 1.380649e-23;
+const pi = 3.141592653;
 const h = 6.62607e-34;
 const c = 299792458;
 const e = 2.7118281828;
+const sigma = 5.67e-8;
 var freq = 0;
-
-function drawChart(T = 4000 , d = 1) {
+var currentcsv = [];
+function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
-    let v = 65000 * d; 
-    let nu_obs = nu_peak * (1 / (1 - (-1*v / c)));
+    
+    let nu_obs = nu_peak*(1 / (1 - (-1*v / c)))*((65*d)/c);
     
     let x_vals = [];
     let y_vals = [];
@@ -18,7 +20,9 @@ function drawChart(T = 4000 , d = 1) {
     for (let x = start; x <= end; x += step) {
         let b = (2*h*x**3)/(c**2)*(1/(e**((h*x)/(k*T))-1));
         x_vals.push(x);
-        y_vals.push(b);}
+        y_vals.push(b);
+        currentcsv.push([x,b]);
+    }
 
     const lines = [
         { x: 4e14, color: 'red', label: 'red' },
@@ -137,20 +141,55 @@ const tSlider = document.getElementById('tempSlider');
 const dSlider = document.getElementById('distSlider');
 const tShow = document.getElementById('tempVal');
 const dShow = document.getElementById('distVal');
+const vSlider = document.getElementById('veloslider');
+const rSlider = document.getElementById('radiaslider');
+const vShow = document.getElementById('veloVal');
+const rShow = document.getElementById('radVal');
 
 function updateAll() {
     let t = parseFloat(tSlider.value);
     let d = parseFloat(dSlider.value);
+    let r = parseFloat(rSlider.value);
+    let v = parseFloat(vSlider.value);
     
     tShow.innerText = t;
     dShow.innerText = d;
+    rShow.innerText = r;
+    vShow.innerText = v;
     
-    drawChart(t, d);
+    drawChart(t, d, v);
     updateNearest(t);
     updateBulb(freq);
+    updateLuminosity(t,r);
+}
+
+const lumoshow = document.getElementById('Lumo');
+function updateLuminosity(t,r){
+    lumoshow.innerHTML = `Luminosity (W): ${(sigma*(t**4)*4*pi*r*1e9).toExponential(3)}`;
 }
 
 tSlider.addEventListener('input', updateAll);
 dSlider.addEventListener('input', updateAll);
+rSlider.addEventListener('input',updateAll);
+vSlider.addEventListener('input',updateAll);
+
+
+const importer = document.getElementById('import');
+importer.onclick = () => {
+    const blobData = currentcsv; 
+    const blyoba = new Blob(blobData, { type: 'text/csv' }); 
+    const url = URL.createObjectURL(blyoba); 
+    
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "planck_spectrum_data.csv"; 
+    
+    document.body.appendChild(link);
+    link.click(); 
+    document.body.removeChild(link);
+    
+    URL.revokeObjectURL(url);
+};
+
 
 updateAll();
