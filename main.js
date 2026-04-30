@@ -9,7 +9,7 @@ var currentcsv = [];
 function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
     let z = 1/(1+(65*d*1000)/c); 
-    let nu_obs = nu_peak * (1/(1+(1000*v/c))) * z;
+    let nu_obs = nu_peak * (1+(1000*v/c)) * z;
     
     let x_vals = [];
     let y_vals = [];
@@ -53,6 +53,7 @@ const layout = {
         xaxis: { 
             type: 'log', 
             title: { text: 'Frequency (Hz)', font: { size: 18 } },
+            exponentformat: 'e',
             autorange: true 
         },
         yaxis: { 
@@ -74,12 +75,12 @@ drawChart();
 
 const shownear = document.getElementById('shownear');
 const starPresets = [
-    ["Proxima Centauri",3042, 1.3 ],
-    ["Sun",5768,0],
-    ["Sirius A",9940,8.6],
-    ["Vega",9602,25],
-    ["Rigel",12100,860],
-    ["Betelgeuse",3500,640]
+    ["Proxima Centauri", 3042, 0.000013, 0.2],
+    ["Sun",5768,0, 0.696],
+    ["Sirius A",9940, 0.000026, 1.2],
+    ["Vega",9602,0.00025,1.8],
+    ["Rigel",12100,0.0086,55],
+    ["Betelgeuse",3500,0.0064, 600]
 ]
 
 function updateNearest(currentT) {
@@ -91,9 +92,11 @@ function updateNearest(currentT) {
     shownear.onclick = () => {
         document.getElementById('tempSlider').value = nearest[1];
         document.getElementById('distSlider').value = nearest[2];
+        document.getElementById('radiaslider').value = nearest[3];
         
         document.getElementById('tempVal').innerText = nearest[1];
         document.getElementById('distVal').innerText = nearest[2];
+        document.getElementById('radVal').innerText = nearest[3];
         
         drawChart(nearest[1], nearest[2]);
     };
