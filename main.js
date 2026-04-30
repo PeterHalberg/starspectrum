@@ -8,8 +8,8 @@ var freq = 0;
 var currentcsv = [];
 function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
-    let z = 1+(65*d)/c;
-    let nu_obs = nu_peak * (1 / (1 - (-1*v / c))) * z;
+    let z = 1/(1+(65*d*1000)/c);
+    let nu_obs = nu_peak * (1+(1000*v/c)) * z;
     
     let x_vals = [];
     let y_vals = [];
@@ -145,6 +145,10 @@ const vSlider = document.getElementById('veloslider');
 const rSlider = document.getElementById('radiaslider');
 const vShow = document.getElementById('veloVal');
 const rShow = document.getElementById('radVal');
+tSlider.addEventListener('input', updateAll);
+dSlider.addEventListener('input', updateAll);
+rSlider.addEventListener('input', updateAll);
+vSlider.addEventListener('input', updateAll);
 
 function updateAll() {
     let t = parseFloat(tSlider.value);
@@ -165,13 +169,8 @@ function updateAll() {
 
 const lumoshow = document.getElementById('Lumo');
 function updateLuminosity(t,r){
-    lumoshow.innerHTML = `Luminosity (W): ${(sigma*(t**4)*4*pi*r*1e9).toExponential(3)}`;
+    lumoshow.innerHTML = `Luminosity (W): ${(sigma*(t**4)*4*pi**2*r*1e9).toExponential(3)}`;
 }
-
-tSlider.addEventListener('input', updateAll);
-dSlider.addEventListener('input', updateAll);
-rSlider.addEventListener('input',updateAll);
-vSlider.addEventListener('input',updateAll);
 
 
 const importer = document.getElementById('import');
