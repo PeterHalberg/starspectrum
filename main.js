@@ -10,7 +10,7 @@ var currentT = 0;
 function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
     let z = 1/(1+(65*d*1000)/c); 
-    let nu_obs = nu_peak * (1+(1000*v/c)) * z;
+    let nu_obs = nu_peak * (1/(1+(1000*v/c))) * z;
     
     let x_vals = [];
     let y_vals = [];
