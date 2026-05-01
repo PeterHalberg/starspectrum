@@ -6,6 +6,7 @@ const e = 2.7118281828;
 const sigma = 5.67e-8;
 var freq = 0;
 var currentcsv = [];
+var currentT = 0;
 function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
     let z = 1/(1+(65*d*1000)/c); 
@@ -69,6 +70,7 @@ const layout = {
 
   Plotly.react('myDiv', [trace], layout);
   freq = nu_obs;
+  currentT = T;
 }
 
 drawChart();
@@ -83,13 +85,14 @@ const starPresets = [
     ["Betelgeuse",3500,0.0064, 600]
 ]
 
-function updateNearest(currentT) {
+function updateNearest(currentT){
     let nearest = starPresets.reduce((prev, curr) => 
-        Math.abs(curr[1] - currentT) < Math.abs(prev[1] - currentT) ? curr : prev
-    );
-    shownear.innerHTML = nearest[0];
+    Math.abs(curr[1] - currentT) < Math.abs(prev[1] - currentT) ? curr : prev);
+    shownear.innerHTML = nearest[0];}
 
-    shownear.onclick = () => {
+shownear.onclick = () => {
+        let nearest = starPresets.reduce((prev, curr) => 
+    Math.abs(curr[1] - currentT) < Math.abs(prev[1] - currentT) ? curr : prev);
         document.getElementById('tempSlider').value = nearest[1];
         document.getElementById('distSlider').value = nearest[2];
         document.getElementById('radiaslider').value = nearest[3];
@@ -97,10 +100,8 @@ function updateNearest(currentT) {
         document.getElementById('tempVal').innerText = nearest[1];
         document.getElementById('distVal').innerText = nearest[2];
         document.getElementById('radVal').innerText = nearest[3];
-        
-        drawChart(nearest[1], nearest[2]);
-    };
-}
+        updateAll();
+};
 
 function freqToRGB(freq) {
     let wavelength = (3e8 / freq) * 1e9;
