@@ -11,10 +11,12 @@ function drawChart(T,d,v) {
     let nu_peak = 2.82 * (k * T) / h;
     let z = 1/(1+(65*d*1000)/c); 
     let nu_obs = nu_peak * (1/(1+(1000*v/c))) * z;
-    
+    let delta = nu_peak - nu_obs;
     let x_vals = [];
     let y_vals = [];
-    let start = nu_obs / 100;
+    let x_vals_o = [];
+    let y_vals_o = [];
+    let start = nu_obs / 1000;
     let end = nu_obs * 10;
     let step = (end - start) / 1000;
 
@@ -22,6 +24,8 @@ function drawChart(T,d,v) {
         let b = (2*h*x**3)/(c**2)*(1/(e**((h*x)/(k*T))-1));
         x_vals.push(x);
         y_vals.push(b);
+        x_vals_o.push (x-delta);
+        y_vals_o.push(b/((1+z)**5));
         currentcsv.push([x,b]);
     }
 
@@ -41,13 +45,19 @@ function drawChart(T,d,v) {
         line: { color: line.color, width: 3, dash: line.dash || 'dashdot' }
     }));
 
-    const trace = {
+    const trace = [{
         x: x_vals,
         y: y_vals,
         mode: 'lines',
         name: 'Frequency distribution',
         line: { color: 'black', width: 2 }
-    };
+    }, {
+        x: x_vals_o,
+        y: y_vals_o,
+        mode: 'lines',
+        name: 'Frequency distribution',
+        line: { color: 'black', width: 2 }
+    }];
 
 const layout = {
         title: "Blackbody Radiation Spectrum",
@@ -58,6 +68,7 @@ const layout = {
             autorange: true 
         },
         yaxis: { 
+            type: 'log',
             title: { text: 'Spectral Radiance', font: { size: 18 } },
             exponentformat: 'e',
             showticklabels: true
@@ -68,7 +79,7 @@ const layout = {
         showlegend: false
     };
 
-  Plotly.react('myDiv', [trace], layout);
+  Plotly.react('myDiv', trace, layout);
   freq = nu_obs;
   currentT = T;
 }
