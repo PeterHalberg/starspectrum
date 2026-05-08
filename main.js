@@ -3,7 +3,7 @@ const pi = 3.141592653;
 const h = 6.62607e-34;
 const c = 299792458;
 const e = 2.7118281828;
-const sigma = 5.67e-8;
+const sigma = 5.670374e-8;
 var freq = 0;
 var currentcsv = [];
 var currentT = 0;
@@ -56,7 +56,7 @@ function drawChart(T,d,v) {
         y: y_vals_o,
         mode: 'lines',
         name: 'Frequency distribution',
-        line: { color: 'black', width: 2 }
+        line: { color: 'black', width: 2, dash: 'dash' }
     }];
 
 const layout = {
@@ -89,7 +89,7 @@ drawChart();
 const shownear = document.getElementById('shownear');
 const starPresets = [
     ["Proxima Centauri", 3042, 0.000013, 0.2],
-    ["Sun",5768,0, 0.696],
+    ["Sun", 5768,0, 0.696],
     ["Sirius A",9940, 0.000026, 1.2],
     ["Vega",9602,0.00025,1.8],
     ["Rigel",12100,0.0086,55],
