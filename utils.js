@@ -493,4 +493,7 @@ export function calculate_arrays(){
     });
     return [array1, array2, array3];
 }
-console.log(calculate_arrays());
+export function convert_to_len(freq) {
+    const SPEED_OF_LIGHT = 299792458;
+    return Math.round((SPEED_OF_LIGHT / freq)*1e9);
+}
